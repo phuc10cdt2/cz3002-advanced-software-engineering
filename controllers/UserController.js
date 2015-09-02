@@ -15,7 +15,7 @@ exports.signup = function(req, res){
             res.send("Error occurs when registering a new user");
             console.log(err);
         }
-        res.json(user);
+        res.redirect('/');
     });
 };
 

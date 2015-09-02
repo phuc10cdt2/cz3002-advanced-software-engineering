@@ -1,1 +1,15 @@
-h3 Woooh, you have successfully signed in!
+extends layout
+block content
+	div.container-fluid(ng-controller = "IndexController as IndexCtrl")
+		div.row
+			div.col-sm-offset-2.col-sm-8
+				form.form-horizontal(action = "/rant/new" method = "POST")
+					div.form-group
+						h3 What do you want to rant?
+						div
+							textarea.form-control(rows = "5" name = 'content' value = "What's in your mind?")
+					div.form-group
+						div.col-sm-offset-11
+							button.btn.btn-default(type='submit') Post
+				div.row(ng-repeat = "rant in rants") 
+
