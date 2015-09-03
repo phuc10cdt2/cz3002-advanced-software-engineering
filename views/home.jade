@@ -1,8 +1,9 @@
 extends layout
 block content
-	div.container-fluid(ng-controller = "IndexController as IndexCtrl")
+	include header.jade
+	div.container-fluid(ng-controller = 'IndexController as IndexCtrl')
 		div.row
-			div.col-sm-offset-2.col-sm-8
+			div.col-xs-offset-2.col-xs-8
 				form.form-horizontal(action = "/rant/new" method = "POST")
 					div.form-group
 						h3 What do you want to rant?

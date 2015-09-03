@@ -6,11 +6,13 @@ var pass = require('../config/passport');
 /* GET home page. */
 router.get('/', function(req, res, next) {
     if(req.isAuthenticated()){
-        res.render('home');
+        var user = req.user;
+        var username = user.username;
+        console.log("username: " + username);
+        res.render('home', {name: username});
     }
     else{
-        var msg = req.flash("error");
-        res.render('signin', {message: msg});
+        res.render('signin');
     }
 });
 router.get('/signup', function(req, res, next){
@@ -23,8 +25,9 @@ router.get('/signin', function(req, res, next){
         res.render('home');
     }
     else {
-        res.render('signin');
+        var msg = req.flash("error");
+        res.render('signin', {message:msg});
     }
 });
-
+router.get('/logout', UserController.logout);
 module.exports = router;
