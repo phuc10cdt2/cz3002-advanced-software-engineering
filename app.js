@@ -14,6 +14,7 @@ mongoose.connect("mongodb://localhost/rant");
 var indexRouter = require('./routes/indexRouter');
 var userRouter = require('./routes/userRouter');
 var rantRouter = require('./routes/rantRouter');
+var externalRouter = require('./routes/externalRouter');
 
 var app = express();
 
@@ -36,6 +37,7 @@ app.use(passport.session());
 app.use('/', indexRouter);
 app.use('/rant', rantRouter);
 app.use('/users', userRouter);
+app.use('/external', externalRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
