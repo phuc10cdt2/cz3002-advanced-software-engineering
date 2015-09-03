@@ -5,17 +5,15 @@ var cmd = "git pull";
 router.post('/gitpull', function(req, res, next){
 	var body = req.body;
 	var secret = body.secret;
-	if(secret == "alpaca"){
-		console.log("updating repo....");
-		exec(cmd, function(err, stdout, stderr){
-			if(err){
-				console.log("Failed to update repo");
-			}
-			else{
-				res.sendStatus(200);
-			}
-		});
-	}
+	console.log("updating repo....");
+	exec(cmd, function(err, stdout, stderr){
+		if(err){
+			console.log("Failed to update repo");
+		}
+		else{
+			res.sendStatus(200);
+		}
+	});
 });
 
 module.exports = router;
