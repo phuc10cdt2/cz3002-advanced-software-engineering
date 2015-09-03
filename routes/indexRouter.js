@@ -7,8 +7,11 @@ var pass = require('../config/passport');
 router.get('/', function(req, res, next) {
     if(req.isAuthenticated()){
         var user = req.user;
-        var username = user.username;
-        res.render('home', {name: username});
+        var displayname = user.displayname;
+        if(!displayname){
+            displayname = user.username;
+        }
+        res.render('home', {name: displayname});
     }
     else{
         res.render('signin');

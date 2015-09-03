@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
+var RantController = require('../controllers/RantController');
 var pass = require('../config/passport');
 
-router.post('/new', function(req, res, next) {
-	res.send('Hi, this is not implemented yet :v come back later');
-});
+router.post('/', pass.ensureAuthenticated, RantController.create);
+router.get('/', pass.ensureAuthenticated, RantController.get);
 
 module.exports = router;

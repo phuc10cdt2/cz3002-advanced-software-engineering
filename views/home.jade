@@ -1,10 +1,10 @@
 extends layout
 block content
 	include header.jade
-	div.container-fluid(ng-controller = 'IndexController as IndexCtrl')
-		div.row
+	div.container-fluid(ng-app="rant")
+		div.row(ng-controller = 'IndexController as IndexCtrl')
 			div.col-xs-offset-3.col-xs-5
-				form.form-horizontal(action = "/rant/new" method = "POST")
+				form.form-horizontal(action = "/rant" method = "POST")
 					div.form-group
 						h4 What do you want to rant?
 						textarea.rant-text.form-control(rows = "3" name = 'content' value = "What's in your mind?")
@@ -12,6 +12,8 @@ block content
 						div.row
 							div.col-sm-2.pull-right
 								button.btn.btn-xs.btn-primary.pull-right.btn-rant(type='submit') Post
-				div.row(ng-repeat = "rant in rants") 
+				div.row(ng-repeat = "rant in rants")
+					a {{rant.ownername}}
+					p {{rant.content}}
 			div.col-xs-3
 
