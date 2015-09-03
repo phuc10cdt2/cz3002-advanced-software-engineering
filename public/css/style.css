@@ -3,6 +3,7 @@ body {
 }
 .customed-header{
   padding: 5px;
+  margin: 10px;
 }
 .display-name{
   margin-left: 5px;
@@ -13,9 +14,6 @@ body {
 }
 .rant-text.form-control{
   margin-bottom: -10px;
-}
-a {
-  color: #00B7FF;
 }
 .form-signin {
   max-width: 330px;

@@ -2,11 +2,19 @@ extends layout
 block content
 	include header.jade
 	div.container-fluid(ng-app="rant")
+		div.row
+			h4.col-xs-offset-3 Rant, gossip, or anything in your mind?
 		div.row(ng-controller = 'IndexController as IndexCtrl')
-			div.col-xs-offset-3.col-xs-5
+			div.col-xs-3
+				ul.list-group
+					li.list-group-item 
+						a Inbox
+						span.badge 1
+					li.list-group-item 
+						a Settings
+			div.col-xs-6
 				form.form-horizontal(action = "/rant" method = "POST")
 					div.form-group
-						h4 What do you want to rant?
 						textarea.rant-text.form-control(rows = "3" name = 'content' value = "What's in your mind?")
 					div.form-group
 						div.row
@@ -16,4 +24,18 @@ block content
 					a {{rant.ownername}}
 					p {{rant.content}}
 			div.col-xs-3
+				ul.list-group
+					li.list-group-item.disabled Suggested friends
+					li.list-group-item
+						a David
+						span.btn.btn-primary.btn-xs.pull-right Add
+					li.list-group-item 
+						a Justin
+						span.btn.btn-primary.btn-xs.pull-right Add
+					li.list-group-item 
+						a Nina
+						span.btn.btn-primary.btn-xs.pull-right Add
+					li.list-group-item 
+						a Jennifer
+						span.btn.btn-primary.btn-xs.pull-right Add
 

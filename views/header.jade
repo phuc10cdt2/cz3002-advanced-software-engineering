@@ -1,5 +1,7 @@
 div.container-fluid.customed-header
-	div.col-xs-offset-10
-		span.display-name #{name}
-		span.logout-btn 
-			a(href = '/logout') Log out
+	div.row
+		div.col-xs-3.pull-right
+			span.logout-btn.pull-right
+				a(href = '/logout') Log out
+			span.display-name.pull-right #{name}
+			
