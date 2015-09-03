@@ -9,6 +9,12 @@ body {
   margin-left: 5px;
   margin-right: 5px;
 }
+.rant-header{
+  margin: 0;
+}
+.rant-content{
+  margin-top: 20px;
+}
 .btn-rant{
   padding:2px 15px;
 }
