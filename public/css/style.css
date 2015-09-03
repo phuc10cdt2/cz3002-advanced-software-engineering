@@ -8,6 +8,12 @@ body {
   margin-left: 5px;
   margin-right: 5px;
 }
+.btn-rant{
+  padding:2px 15px;
+}
+.rant-text.form-control{
+  margin-bottom: -10px;
+}
 a {
   color: #00B7FF;
 }

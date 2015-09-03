@@ -8,7 +8,6 @@ router.get('/', function(req, res, next) {
     if(req.isAuthenticated()){
         var user = req.user;
         var username = user.username;
-        console.log("username: " + username);
         res.render('home', {name: username});
     }
     else{

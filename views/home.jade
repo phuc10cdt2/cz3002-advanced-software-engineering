@@ -3,14 +3,15 @@ block content
 	include header.jade
 	div.container-fluid(ng-controller = 'IndexController as IndexCtrl')
 		div.row
-			div.col-xs-offset-2.col-xs-8
+			div.col-xs-offset-3.col-xs-5
 				form.form-horizontal(action = "/rant/new" method = "POST")
 					div.form-group
-						h3 What do you want to rant?
-						div
-							textarea.form-control(rows = "5" name = 'content' value = "What's in your mind?")
+						h4 What do you want to rant?
+						textarea.rant-text.form-control(rows = "3" name = 'content' value = "What's in your mind?")
 					div.form-group
-						div.col-sm-offset-11
-							button.btn.btn-default(type='submit') Post
+						div.row
+							div.col-sm-2.pull-right
+								button.btn.btn-xs.btn-primary.pull-right.btn-rant(type='submit') Post
 				div.row(ng-repeat = "rant in rants") 
+			div.col-xs-3
 
