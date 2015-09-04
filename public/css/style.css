@@ -1,6 +1,22 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+label {
+    font-weight: normal !important;
+}
+.form-inline .form-group input{
+  width: 80px;
+}
+.rant-timing{
+  padding: 0px;
+  margin:0;
+}
+.rant-settings{
+}
+.form-inline .form-group{
+    margin-left: 0;
+    margin-right: 0;
+}
 .customed-header{
   padding: 5px;
   margin: 10px;
@@ -8,6 +24,8 @@ body {
 .display-name{
   margin-left: 5px;
   margin-right: 5px;
+}
+.vcenter{
 }
 .rant-header{
   margin: 0;

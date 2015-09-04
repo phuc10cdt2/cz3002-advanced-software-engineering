@@ -13,14 +13,27 @@ block content
 					li.list-group-item 
 						a Settings
 			div.col-xs-6
-				
 				form.form-horizontal(action = "/rant" method = "POST")
 					div.form-group
 						textarea.rant-text.form-control(rows = "3" name = 'content' value = "What's in your mind?")
+					div.form-group.rant-settings
+						div.col-xs-8.rant-timing
+							div.form-inline
+								div.form-group.col-xs-6.rant-timing
+									label Life time(s):
+									input.form-control.input-sm(type='text' name='lifetime')
+								div.form-group.col-xs-6.rant-timing
+									label View time(s):
+									input.form-control.input-sm(type='text' name='viewtime')
+						div.col-xs-4
+							div.checkbox
+								label
+									input(type='checkbox' name='anonymous')
+									| Post as anonymous
 					div.form-group
-						div.row
-							div.col-sm-2.pull-right
-								button.btn.btn-xs.btn-primary.pull-right.btn-rant(type='submit') Post
+						div.col-sm-2.pull-right.rant-timing
+							button.btn.btn-xs.btn-primary.pull-right.btn-rant(type='submit') Post
+					
 				div.row
 					hr
 				div.row(ng-repeat = "rant in rants")
