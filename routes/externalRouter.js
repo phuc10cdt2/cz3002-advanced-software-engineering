@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var exec = require('child_process').exec;
-var cmd = "git pull";
+var cmd = "git pull;npm install";
 router.post('/gitpull', function(req, res, next){
 	var body = req.body;
 	var secret = body.secret;
