@@ -10,7 +10,8 @@ var rantSchema = new Schema({
     viewtime: {type: Number, default: 60},
     updated_at: {type: Date, default: Date.now},
     created_at: {type: Date, default: Date.now},
-    active: {type: Boolean, default: true}
+    active: {type: Boolean, default: true},
+    whoviewed: [String]
 });
 
 rantSchema.pre("save", function(next){

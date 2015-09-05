@@ -1,6 +1,6 @@
 var User = require('../models/user');
 var passport = require('passport');
-
+var self = this;
 exports.signup = function(req, res){
     var email = req.body.email;
     var displayname = req.body.name;
@@ -53,4 +53,53 @@ exports.signin = passport.authenticate('local',
 exports.logout = function(req, res){
     req.logout();
     res.redirect('/signin');
+}
+exports.getAll = function(req, res){
+    User.find({}, function(err, users){
+        if(err){
+            res.sendStatus(500);
+        }
+        else{
+            res.send(users);
+        }
+    });
+}
+
+exports.getfriendSuggestion = function(req, res) {
+    var user = req.user;
+    //for now, suggest all other users
+    User.find({}, function(err, users){
+        if(err){
+            res.sendStatus(500);
+        }
+        else{
+            for(var i=0; i<users.length; i++){
+                var temp = users[i];
+                if(temp.username == user.username){
+                    users.splice(i, 1);
+                    break;
+                }
+            }
+            res.send(users);
+        }
+    });
+}
+exports.addfriend = function (req, res, next) {
+    var body = req.body;
+    var user = req.user;
+    var username = user.username;
+    var friendUsername = body.username;
+    console.log("USRNAME: " + friendUsername);
+    User.findOneAndUpdate({username:username},
+        {$push: {friends: friendUsername}},
+        {safe:true},
+        function(err, model){
+            if(err){
+                console.log("FAILED to add a friend");
+                res.sendStatus(500);
+            }
+            else{
+                res.sendStatus(200);
+            }
+        })
 }

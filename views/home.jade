@@ -4,7 +4,7 @@ block content
 	div.container-fluid(ng-app="rant")
 		div.row
 			h4.col-xs-offset-3 Rant, gossip, or anything in your mind?
-		div.row(ng-controller = 'IndexController as IndexCtrl')
+		div.row(ng-controller = 'IndexController as indexctrl')
 			div.col-xs-3
 				ul.list-group
 					li.list-group-item 
@@ -45,16 +45,16 @@ block content
 			div.col-xs-3
 				ul.list-group
 					li.list-group-item.disabled Suggested friends
-					li.list-group-item
-						a David
-						span.btn.btn-primary.btn-xs.pull-right Add
-					li.list-group-item 
-						a Justin
-						span.btn.btn-primary.btn-xs.pull-right Add
-					li.list-group-item 
-						a Nina
-						span.btn.btn-primary.btn-xs.pull-right Add
-					li.list-group-item 
-						a Jennifer
-						span.btn.btn-primary.btn-xs.pull-right Add
+					li.list-group-item(ng-repeat='friend in friendSuggestions' ng-hide='friend.added')
+						a {{friend.displayname}}
+						span.btn.btn-primary.btn-xs.pull-right(ng-click='addFriend(friend)') Add
+					//- li.list-group-item 
+					//- 	a Justin
+					//- 	span.btn.btn-primary.btn-xs.pull-right Add
+					//- li.list-group-item 
+					//- 	a Nina
+					//- 	span.btn.btn-primary.btn-xs.pull-right Add
+					//- li.list-group-item 
+					//- 	a Jennifer
+					//- 	span.btn.btn-primary.btn-xs.pull-right Add
 
