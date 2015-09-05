@@ -1,5 +1,6 @@
 var User = require('../models/user');
 var passport = require('passport');
+var async = require('async');
 var self = this;
 exports.signup = function(req, res){
     var email = req.body.email;
@@ -38,7 +39,6 @@ exports.signup = function(req, res){
                         });
                     }
                 });
-
             }
         }
     });
@@ -64,26 +64,55 @@ exports.getAll = function(req, res){
         }
     });
 }
-
-exports.getfriendSuggestion = function(req, res) {
-    var user = req.user;
-    //for now, suggest all other users
-    User.find({}, function(err, users){
+function getFriendList(username, callback){
+    User.findOne({username: username}, function(err, user){
         if(err){
-            res.sendStatus(500);
+            callback(err);
         }
         else{
-            for(var i=0; i<users.length; i++){
-                var temp = users[i];
-                if(temp.username == user.username){
-                    users.splice(i, 1);
-                    break;
-                }
-            }
-            res.send(users);
+            console.log(user.friends);
+            callback(null, user.friends);
         }
     });
 }
+exports.getfriendSuggestion = function(req, res) {
+    var user = req.user;
+    async.parallel({
+        userfriendlist: function(callback){
+            getFriendList(user.username, callback);
+        },
+        getallusers: function(callback){
+            User.find({}, function(err, users){
+                if(err){
+                    callback(err);
+                }
+                else{
+                    callback(null, users);
+                }
+            });
+        }
+    },
+    function(err, results){
+        if(err){
+            console.log(err);
+            res.sendStatus(500);
+        }
+        else{
+            var friendList = results.userfriendlist;
+            var allusers = results.getallusers;
+            for(var i = 0; i<allusers.length; i++){
+                console.log(allusers[i].username);
+                if(friendList.indexOf(allusers[i].username)>-1 || user.username == allusers[i].username){
+                    console.log("remove " + allusers[i].username);
+                    allusers.splice(i,1);
+                    i--;
+                }
+            }
+            res.send(allusers);
+        }
+    }
+    );
+}    
 exports.addfriend = function (req, res, next) {
     var body = req.body;
     var user = req.user;
