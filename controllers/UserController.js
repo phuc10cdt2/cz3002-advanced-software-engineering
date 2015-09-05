@@ -17,12 +17,16 @@ exports.signup = function(req, res){
                 res.render('signup', {message: "Email is already used!"});
             }
             else{
-                User.count({}, function (err, count){
+                User.find({}).sort({created_at: -1}).exec(function (err, allusers){
                     if(err){
                         console.log(err);
                         res.render('signup', {message: "Error occurs when registering a new user"});
                     }else{
-                        var username = "user" + count;
+                        var lastusername = allusers[0].username;
+                        console.log("LAST NAME " + lastusername);
+                        var index = parseInt(lastusername.substring(4), 10) + 1;
+                        var username = "user" + index.toString();
+
                         console.log(username);
                         var newuser = new User({
                             email: email,

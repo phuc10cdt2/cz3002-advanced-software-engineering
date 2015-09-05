@@ -6,8 +6,20 @@ exports.create = function(req, res, next){
 	var owner = user.username;
 	var ownername = user.displayname;
 	//these values not set over yet
-	var lifetime = parseInt(body.lifetime,10);
-	var viewtime = parseInt(body.viewtime,10);
+	var viewtime;
+	var lifetime;
+	if(body.lifetime){
+		lifetime = parseInt(body.lifetime,10);
+	}
+	else{
+		lifetime = 3600;
+	}
+	if(body.viewtime){
+		viewtime = parseInt(body.viewtime,10);
+	}
+	else{
+		viewtime = 60;
+	}
 	if(body.anonymous){
 		ownername = "Anonymous";
 	}
@@ -21,6 +33,7 @@ exports.create = function(req, res, next){
 	rant.save(function(err, rant, num){
 		if(err){
 			console.log("FAILED to stored new rant");
+			console.log(err);
 			res.send("FAILED!");
 		}
 		else{
@@ -32,7 +45,7 @@ exports.create = function(req, res, next){
 
 exports.get = function(req, res, next){
 	var user = req.user;
-	Rant.find({}, function(err, rants, num){
+	Rant.find({}).sort({created_at: -1}).exec(function(err, rants, num){
 		if(err){
 			res.send("FAILED to retrieve rants");
 		}
