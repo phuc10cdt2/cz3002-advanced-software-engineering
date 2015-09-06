@@ -74,7 +74,6 @@ function getFriendList(username, callback){
             callback(err);
         }
         else{
-            console.log(user.friends);
             callback(null, user.friends);
         }
     });
@@ -105,9 +104,7 @@ exports.getfriendSuggestion = function(req, res) {
             var friendList = results.userfriendlist;
             var allusers = results.getallusers;
             for(var i = 0; i<allusers.length; i++){
-                console.log(allusers[i].username);
                 if(friendList.indexOf(allusers[i].username)>-1 || user.username == allusers[i].username){
-                    console.log("remove " + allusers[i].username);
                     allusers.splice(i,1);
                     i--;
                 }

@@ -46,7 +46,7 @@ exports.create = function(req, res, next){
 exports.get = function(req, res, next){
 	var user = req.user;
 	var friendlist = user.friends;
-	Rant.find({}).sort({created_at: -1}).exec(function(err, rants, num){
+	Rant.find({active:true}).sort({created_at: -1}).exec(function(err, rants, num){
 		if(err){
 			res.send("FAILED to retrieve rants");
 		}
@@ -54,10 +54,19 @@ exports.get = function(req, res, next){
 			var returnedRants =[];
 			for(var i = 0; i<rants.length; i++){
 				var rant = rants[i];
-				var date = new Date(rant.updated_at);
-				console.log(date);
 				if(friendlist.indexOf(rant.owner)>-1 || rant.owner == user.username){
-					returnedRants.push(rant);
+					var date = new Date(rant.created_at);
+					var created = date.valueOf();
+					var now = new Date().getTime();
+					var diff = (now - created)/1000;
+					console.log("Diff time: " + diff);
+					if(diff<rant.lifetime){
+						returnedRants.push(rant);
+					}
+					else{
+						rant.active = false;
+						rant.save();
+					}
 				}
 			}
 			res.send(returnedRants);
