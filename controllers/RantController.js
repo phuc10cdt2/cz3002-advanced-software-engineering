@@ -45,12 +45,24 @@ exports.create = function(req, res, next){
 
 exports.get = function(req, res, next){
 	var user = req.user;
+	var friendlist = user.friends;
 	Rant.find({}).sort({created_at: -1}).exec(function(err, rants, num){
 		if(err){
 			res.send("FAILED to retrieve rants");
 		}
 		else{
-			res.send(rants);
+			var returnedRants =[];
+			for(var i = 0; i<rants.length; i++){
+				var rant = rants[i];
+				var date = new Date(rant.updated_at);
+				console.log(date);
+				if(friendlist.indexOf(rant.owner)>-1 || rant.owner == user.username){
+					returnedRants.push(rant);
+				}
+			}
+			res.send(returnedRants);
 		}
 	});
 }
+
+
