@@ -1,6 +1,6 @@
 div.row
     ul.list-group
-        li.list-group-item(ng-repeat = "user in followings")
+        li.list-group-item(ng-repeat = "user in followings", ng-hide="user.removed")
             a(href='/users?username={{user.username}}') {{user.displayname}}
             span.btn.btn-primary.btn-xs.pull-right(ng-click='unfollow(user)') Unfollow
 

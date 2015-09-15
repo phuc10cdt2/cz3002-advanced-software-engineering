@@ -16,7 +16,7 @@ block content
 					li.list-group-item
 						a Settings
 			div.col-xs-6(ng-view)
-			div.col-xs-3(ng-controller='FollowingController')
+			div.col-xs-3(ng-controller='SuggestionController')
 				ul.list-group(ng-show='suggestionLength')
 					li.list-group-item.disabled Suggested friends
 					li.list-group-item(ng-repeat='friend in friendSuggestions' ng-hide='friend.added')

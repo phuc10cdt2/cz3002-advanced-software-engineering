@@ -11,4 +11,6 @@ router.get('/friendSuggestion', pass.ensureAuthenticated, UserController.getfrie
 router.post('/addfriend', pass.ensureAuthenticated, UserController.addfriend);
 
 router.get('/followings', pass.ensureAuthenticated, UserController.getFollowings);
+
+router.post('/unfollow', pass.ensureAuthenticated, UserController.unfollow);
 module.exports = router;

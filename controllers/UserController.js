@@ -151,3 +151,23 @@ exports.getFollowings = function (req, res) {
         }
     });
 }
+
+exports.unfollow = function(req, res) {
+    var body = req.body;
+    var user = req.user;
+    var username = user.username;
+    var friendUsername = body.username;
+    User.update(
+        {username: username},
+        {$pull: {friends:friendUsername},
+    }, function(err, num){
+        if(err){
+            console.log(err);
+            res.sendStatus(500);
+        }
+        else{
+            console.log("Unfollowing friend: " + num);
+            res.send(num);
+        }
+    });
+}
