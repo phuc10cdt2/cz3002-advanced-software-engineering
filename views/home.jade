@@ -3,58 +3,22 @@ block content
 	include header.jade
 	div.container-fluid(ng-app="rant")
 		div.row
-			h4.col-xs-offset-3 Rant, gossip, or anything in your mind?
-		div.row(ng-controller = 'IndexController as indexctrl')
 			div.col-xs-3
 				ul.list-group
 					li.list-group-item 
-						a Inbox
-						span.badge 1
+						a(href='#/') Home
 					li.list-group-item 
+						a Profile
+					li.list-group-item 
+						a Messages
+					li.list-group-item 
+						a(href='#/followings') Followings
+					li.list-group-item
 						a Settings
-			div.col-xs-6
-				form.form-horizontal(action = "/rant" method = "POST")
-					div.form-group
-						textarea.rant-text.form-control(rows = "3" name = 'content' value = "What's in your mind?")
-					div.form-group.rant-settings
-						div.col-xs-8.rant-timing
-							div.form-inline
-								div.form-group.col-xs-6.rant-timing
-									label Life time(s):
-									input.form-control.input-sm(type='text' name='lifetime')
-								div.form-group.col-xs-6.rant-timing
-									label View time(s):
-									input.form-control.input-sm(type='text' name='viewtime')
-						div.col-xs-4
-							div.checkbox
-								label
-									input(type='checkbox' name='anonymous')
-									| Post as anonymous
-					div.form-group
-						div.col-sm-2.pull-right.rant-timing
-							button.btn.btn-xs.btn-primary.pull-right.btn-rant(type='submit') Post
-					
-				div.row
-					hr
-				div.row(ng-repeat = "rant in rants")
-					div.rant-header
-						a {{rant.ownername}}
-					div.rant-content
-						p {{rant.content}}
-					hr
-			div.col-xs-3
-				ul.list-group
+			div.col-xs-6(ng-view)
+			div.col-xs-3(ng-controller='FollowingController')
+				ul.list-group(ng-show='suggestionLength')
 					li.list-group-item.disabled Suggested friends
 					li.list-group-item(ng-repeat='friend in friendSuggestions' ng-hide='friend.added')
 						a {{friend.displayname}}
-						span.btn.btn-primary.btn-xs.pull-right(ng-click='addFriend(friend)') Add
-					//- li.list-group-item 
-					//- 	a Justin
-					//- 	span.btn.btn-primary.btn-xs.pull-right Add
-					//- li.list-group-item 
-					//- 	a Nina
-					//- 	span.btn.btn-primary.btn-xs.pull-right Add
-					//- li.list-group-item 
-					//- 	a Jennifer
-					//- 	span.btn.btn-primary.btn-xs.pull-right Add
-
+						span.btn.btn-primary.btn-xs.pull-right(ng-click='follow(friend)') Follow

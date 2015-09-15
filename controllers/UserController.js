@@ -132,4 +132,22 @@ exports.addfriend = function (req, res, next) {
                 res.sendStatus(200);
             }
         })
+};
+exports.getFollowings = function (req, res) {
+    var body = req.body;
+    var user = req.user;
+    var username = user.username;
+    var followingList = user.friends;
+    User.find({
+        'username': {
+            $in:followingList
+        }
+    }, 'username displayname', function(err, users){
+        if(err){
+            console.log("FAILED to add a friend");
+            res.sendStatus(500);
+        }else{
+            res.send(users);
+        }
+    });
 }

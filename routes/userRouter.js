@@ -9,4 +9,6 @@ router.get('/', pass.ensureAuthenticated, UserController.getAll);
 router.get('/friendSuggestion', pass.ensureAuthenticated, UserController.getfriendSuggestion);
 
 router.post('/addfriend', pass.ensureAuthenticated, UserController.addfriend);
+
+router.get('/followings', pass.ensureAuthenticated, UserController.getFollowings);
 module.exports = router;

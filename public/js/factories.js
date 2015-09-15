@@ -2,8 +2,12 @@
     angular.module('rant').factory('Utils', function($http){
         return {
             getFriendSuggestion: getFriendSuggestion,
-            addFriend: addFriend
+            addFriend: addFriend,
+            getFollowings: getFollowings
         };
+        function getFollowings (username) {
+            return $http.get('/users/followings');
+        }
         function getFriendSuggestion(){
         	return $http.get('/users/friendSuggestion')
                 .then(success)
