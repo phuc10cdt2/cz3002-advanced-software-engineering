@@ -17,6 +17,9 @@ router.post('/unfollow', pass.ensureAuthenticated, UserController.unfollow);
 
 router.post('/message', pass.ensureAuthenticated, MessageController.send);
 
+router.get('/message', pass.ensureAuthenticated, MessageController.retrieve);
+
+router.post('/reply', pass.ensureAuthenticated, MessageController.reply);
 router.get('/:username', pass.ensureAuthenticated, UserController.get);
 
 module.exports = router;

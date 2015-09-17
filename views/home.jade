@@ -3,14 +3,15 @@ block content
 	include header.jade
 	div.container-fluid(ng-app="rant")
 		div.row
-			div.col-xs-3
+			div.col-xs-3(ng-controller="HomeController")
 				ul.list-group
 					li.list-group-item 
 						a(href='#/') Home
 					li.list-group-item 
 						a Profile
 					li.list-group-item 
-						a Messages
+						a(href='#/messages') Messages
+							span.pull-right.badge.progress-bar-danger {{messages.length}}
 					li.list-group-item 
 						a(href='#/followings') Followings
 					li.list-group-item

@@ -1,0 +1,28 @@
+div.row.message-box
+    div.row(ng-repeat='message in messages')
+        div.alert.alert-success
+            a(href='users/{{message.sender}}') {{message.sendername}} 
+            | has sent you a message
+            button.pull-right.btn.btn-primary.btn-xs(ng-click='readMessage(message)') View
+
+div.modal.fade#view-message
+    div.modal-dialog
+        div.modal-content
+            div.modal-header
+                button(type='button', data-dismiss='modal', aria-label='Close').close
+                    span(aria-hidden='true') &times;
+                h4.modal-title {{currentMsg.sendername}}
+            div.modal-body
+                form
+                    div.form-group
+                        label.control-label
+                            | {{currentMsg.sendername}} said:
+                        textarea.form-control(ng-model='currentMsg.content')
+                    div.form-group
+                        label.control-label
+                            | Your reply:
+                        textarea.form-control(autofocus)#reply-message
+            div.modal-footer
+                button(type='button', data-dismiss='modal').btn.btn-default Cancel
+                button(type='button', ng-click='reply()').btn.btn-primary Reply
+

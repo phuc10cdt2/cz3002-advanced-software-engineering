@@ -5,7 +5,9 @@
             addFriend: addFriend,
             getFollowings: getFollowings,
             unfollow: unfollow,
-            message: message
+            message: message,
+            getMessage: getMessage,
+            replyMessage: replyMessage
         };
         function getFollowings (username) {
             return $http.get('/users/followings');
@@ -42,8 +44,16 @@
         }
 
         function message(friend, msg){
-            var receiver = friend.username;
-            return $http.post('users/message', {receiver: receiver, message: msg});
+            return $http.post('users/message', {receiver: friend, message: msg});
+        }
+
+        function getMessage(){
+            return $http.get('users/message');
+        }
+
+        function replyMessage(friend, msgid, msg){
+            console.log(friend);
+            return $http.post('users/reply', {msgid: msgid, receiver: friend, message: msg});
         }
     });
     angular.module('rant').factory('Rant', function($resource){

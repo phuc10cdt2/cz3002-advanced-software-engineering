@@ -49,7 +49,7 @@
         }
         $scope.send = function(){
             var msg = $('#msg-content').val();
-            Utils.message($scope.receiver, msg).then(function(res){
+            Utils.message($scope.receiver.username, msg).then(function(res){
                 console.log("SEND!");
                 $('#msg-content').val("");
                 $('#new-message').modal('hide');
@@ -61,7 +61,36 @@
                 console.log("Server error");
             });
         }
-
+    }]);
+    rantControllers.controller('HomeController', ['$scope', 'Utils', function($scope, Utils){    
+        Utils.getMessage().then(function(res){
+            $scope.messages = res.data;
+        }).catch(function(err){
+            console.log("FAILED to get messages");
+        });
     }]);
 
+    rantControllers.controller('MessageController', ['$scope', 'Utils', function($scope, Utils){
+        Utils.getMessage().then(function(res){
+            $scope.messages = res.data;
+        }).catch(function(err){
+            console.log("FAILED to get messages");
+        });
+
+        $scope.readMessage = function(message) {
+            $scope.currentMsg = message;
+            $('#view-message').modal('show');
+        }
+        $scope.reply = function() {
+            var replymsg = $('#reply-message').val();
+            Utils.replyMessage($scope.currentMsg.sender, $scope.currentMsg._id, replymsg).then(function(res){
+                $('#view-message').modal('hide');
+                console.log("Replied!");
+                $scope.currentMsg = null;
+            }).catch(function(err){
+                console.log(err);
+                console.log("Failed to reply a message");
+            });
+        }
+    }]);
 })();

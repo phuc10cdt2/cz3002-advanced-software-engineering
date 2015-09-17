@@ -1,15 +1,18 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-label {
+label.rant-settings {
     font-weight: normal !important;
+}
+.message-box{
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .list-btn{
   margin-right: 10px;
 }
-
 .modal-body{
-  height: 120px;
+ 
 }
 .form-inline .form-group input{
   width: 80px;
