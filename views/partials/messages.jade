@@ -1,6 +1,6 @@
 div.row.message-box
     div.row(ng-repeat='message in messages')
-        div.alert.alert-success
+        div.alert.alert-success(ng-hide='message.read')
             a(href='users/{{message.sender}}') {{message.sendername}} 
             | has sent you a message
             button.pull-right.btn.btn-primary.btn-xs(ng-click='readMessage(message)') View

@@ -62,28 +62,36 @@
             });
         }
     }]);
-    rantControllers.controller('HomeController', ['$scope', 'Utils', function($scope, Utils){    
+    rantControllers.controller('HomeController', ['$scope', 'Utils', 'Messages', function($scope, Utils, Messages){    
         Utils.getMessage().then(function(res){
-            $scope.messages = res.data;
+            Messages.messages = res.data;
+            $scope.messages = Messages.messages;
         }).catch(function(err){
             console.log("FAILED to get messages");
         });
+        $scope.$watch(Messages.messages, function(newval, oldval){
+            console.log("updating badge");
+            $scope.messages = Messages.messages;
+        }, true);
     }]);
 
-    rantControllers.controller('MessageController', ['$scope', 'Utils', function($scope, Utils){
+    rantControllers.controller('MessageController', ['$scope', 'Utils', 'Messages', function($scope, Utils, Messages){
         Utils.getMessage().then(function(res){
             $scope.messages = res.data;
         }).catch(function(err){
             console.log("FAILED to get messages");
         });
-
+        console.log(Messages.messages);
         $scope.readMessage = function(message) {
             $scope.currentMsg = message;
+            message.read = true;
+            Messages.remove(message);
+            Utils.readMessage(message._id);
             $('#view-message').modal('show');
         }
         $scope.reply = function() {
             var replymsg = $('#reply-message').val();
-            Utils.replyMessage($scope.currentMsg.sender, $scope.currentMsg._id, replymsg).then(function(res){
+            Utils.message($scope.currentMsg.sender, replymsg).then(function(res){
                 $('#view-message').modal('hide');
                 console.log("Replied!");
                 $scope.currentMsg = null;

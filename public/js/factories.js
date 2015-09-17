@@ -7,7 +7,7 @@
             unfollow: unfollow,
             message: message,
             getMessage: getMessage,
-            replyMessage: replyMessage
+            readMessage: readMessage
         };
         function getFollowings (username) {
             return $http.get('/users/followings');
@@ -50,11 +50,23 @@
         function getMessage(){
             return $http.get('users/message');
         }
-
-        function replyMessage(friend, msgid, msg){
-            console.log(friend);
-            return $http.post('users/reply', {msgid: msgid, receiver: friend, message: msg});
+        function readMessage(msgid){
+            return $http.post('users/readmessage', {msgid: msgid});
         }
+    });
+    angular.module('rant').factory('Messages', function() {
+        var Messages = {};
+        Messages.messages = [];
+        Messages.remove = function(msg){
+                            for(var i=0; i<Messages.messages.length; i++){
+                                var m = Messages.messages[i];
+                                if(m._id == msg._id){
+                                    console.log("REEEEEMOOVe");
+                                    Messages.messages.slice(i, 1);
+                                }
+                            }
+                        }
+        return Messages;
     });
     angular.module('rant').factory('Rant', function($resource){
         return $resource('/rant/:id', {id: '@id'});
