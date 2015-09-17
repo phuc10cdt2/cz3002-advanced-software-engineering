@@ -55,7 +55,6 @@
                 $('#new-message').modal('hide');
                 $scope.success = true;
                 $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
-                        $("#success-alert").alert('close');
                         $scope.success = false;
                 });
             }).catch(function(err){
