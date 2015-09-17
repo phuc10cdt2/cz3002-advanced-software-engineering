@@ -4,7 +4,8 @@
             getFriendSuggestion: getFriendSuggestion,
             addFriend: addFriend,
             getFollowings: getFollowings,
-            unfollow: unfollow
+            unfollow: unfollow,
+            message: message
         };
         function getFollowings (username) {
             return $http.get('/users/followings');
@@ -38,6 +39,11 @@
         function unfollow (friend) {
             var username = friend.username;
             return $http.post('/users/unfollow', {username: username});
+        }
+
+        function message(friend, msg){
+            var receiver = friend.username;
+            return $http.post('users/message', {receiver: receiver, message: msg});
         }
     });
     angular.module('rant').factory('Rant', function($resource){

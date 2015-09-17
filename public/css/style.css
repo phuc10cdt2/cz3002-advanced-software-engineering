@@ -4,6 +4,13 @@ body {
 label {
     font-weight: normal !important;
 }
+.list-btn{
+  margin-right: 10px;
+}
+
+.modal-body{
+  height: 120px;
+}
 .form-inline .form-group input{
   width: 80px;
 }

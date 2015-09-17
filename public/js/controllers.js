@@ -42,6 +42,26 @@
                 console.log(err);
             })
         }
+        $scope.open = function(user){
+            $scope.receiver = user;
+            $('#new-message').modal('show');
+            console.log(user.username);
+        }
+        $scope.send = function(){
+            var msg = $('#msg-content').val();
+            Utils.message($scope.receiver, msg).then(function(res){
+                console.log("SEND!");
+                $('#msg-content').val("");
+                $('#new-message').modal('hide');
+                $scope.success = true;
+                $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+                        $("#success-alert").alert('close');
+                        $scope.success = false;
+                });
+            }).catch(function(err){
+                console.log("Server error");
+            });
+        }
 
     }]);
 

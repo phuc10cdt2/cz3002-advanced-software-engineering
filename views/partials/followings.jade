@@ -1,6 +1,20 @@
 div.row
+    div.alert.alert-success(role='alert', ng-show="success")#success-alert You message has been sent!
     ul.list-group
         li.list-group-item(ng-repeat = "user in followings", ng-hide="user.removed")
             a(href='/users?username={{user.username}}') {{user.displayname}}
-            span.btn.btn-primary.btn-xs.pull-right(ng-click='unfollow(user)') Unfollow
+            span.btn.btn-primary.btn-xs.pull-right.list-btn(ng-click='unfollow(user)') Unfollow
+            span.btn.btn-primary.btn-xs.pull-right.list-btn(ng-click='open(user)') Message
+            div.modal.fade#new-message
+                div.modal-dialog
+                    div.modal-content
+                        div.modal-header
+                            button(type='button', data-dismiss='modal', aria-label='Close').close
+                                span(aria-hidden='true') &times;
+                            h4.modal-title New message
+                        div.modal-body
+                            textarea.form-control#msg-content(rows='4', name='messageContent', value='say something...')
+                        div.modal-footer
+                            button(type='button', data-dismiss='modal').btn.btn-default Cancel
+                            button(type='button', ng-click='send()').btn.btn-primary Send
 

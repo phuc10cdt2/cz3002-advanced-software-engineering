@@ -171,3 +171,6 @@ exports.unfollow = function(req, res) {
         }
     });
 }
+exports.get = function (req, res) {
+    
+}
