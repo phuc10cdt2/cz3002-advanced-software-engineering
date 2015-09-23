@@ -23,6 +23,7 @@ exports.signup = function(req, res){
                         res.render('signup', {message: "Error occurs when registering a new user"});
                     }else{
                         if(allusers.length == 0){
+                            //Edit
                             var username = 'user0';
                         }
                         else{
