@@ -5,7 +5,7 @@ var UserController = require('../controllers/UserController');
 var MessageController = require('../controllers/MessageController');
 
 /* GET users listing. */
-router.get('/', pass.ensureAuthenticated, UserController.getAll);
+router.get('/', UserController.getAll);
 
 router.get('/friendSuggestion', pass.ensureAuthenticated, UserController.getfriendSuggestion);
 
