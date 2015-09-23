@@ -1,5 +1,5 @@
 var Rant = require('../models/rant');
-
+var ResponseHelper = require('./ResponseHelper');
 exports.create = function(req, res, next){
 	var user = req.user;
 	var body = req.body;

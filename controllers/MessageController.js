@@ -1,5 +1,5 @@
 var Message = require('../models/message');
-
+var ResponseHelper = require('./ResponseHelper');
 exports.send = function(req, res) {
     var body = req.body;
     var user = req.user;

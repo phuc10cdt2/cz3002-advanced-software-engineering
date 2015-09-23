@@ -2,25 +2,27 @@ var User = require('../models/user');
 var passport = require('passport');
 var async = require('async');
 var self = this;
+var ResponseHelper = require('./ResponseHelper');
 exports.signup = function(req, res){
     var email = req.body.email;
     var displayname = req.body.name;
     var password = req.body.password;
     User.findOne({email:email}, function(err, user){
         if(err){
-            console.log("Crashed when siging up user");
-            res.send("Server is having a problem, try again later!");
+            var pagerender = {name: 'signup', data: {message: "Internal server error!"}};
+            ResponseHelper.respond(res, pagerender, 500, "Internal server error");
         }
         else{
             if(user){
                 console.log("email already used");
-                res.render('signup', {message: "Email is already used!"});
+                var pagerender = {name: 'signup', data: {message: "Email is already used!"}};
+                ResponseHelper.respond(res, 'signup', pagerender, 400, "Email is already used!");
             }
             else{
                 User.find({}).sort({created_at: -1}).exec(function (err, allusers){
                     if(err){
                         console.log(err);
-                        res.render('signup', {message: "Error occurs when registering a new user"});
+                        res.sendStatus(500);
                     }else{
                         if(allusers.length == 0){
                             //Edit
@@ -42,10 +44,11 @@ exports.signup = function(req, res){
                         });
                         newuser.save(function(err, user, num){
                             if(err){
-                                res.render('signup', {message: "Error occurs when registering a new user"});
+                                res.sendStatus(500);
                                 console.log(err);
                             }
-                            res.redirect('/');
+                            var pagerender = {name: 'signin'};
+                            ResponseHelper.respond(res, pagerender, 200, "Successfully signed up!");
                         });
                     }
                 });
@@ -62,15 +65,16 @@ exports.signin = passport.authenticate('local',
 
 exports.logout = function(req, res){
     req.logout();
-    res.redirect('/signin');
+    var pagerender = {name: 'signin'};
+    ResponseHelper.respond(res, pagerender, 200, "See you again");
 }
 exports.getAll = function(req, res){
     User.find({}, function(err, users){
         if(err){
-            res.sendStatus(500);
+            res.status(500).send("Internal server error");
         }
         else{
-            res.send(users);
+            res.status(200).send(users);
         }
     });
 }
@@ -104,7 +108,7 @@ exports.getfriendSuggestion = function(req, res) {
     function(err, results){
         if(err){
             console.log(err);
-            res.sendStatus(500);
+            res.status(500).send("Internal server error");
         }
         else{
             var friendList = results.userfriendlist;
@@ -115,7 +119,7 @@ exports.getfriendSuggestion = function(req, res) {
                     i--;
                 }
             }
-            res.send(allusers);
+            res.status(200).send(allusers);
         }
     }
     );
@@ -132,10 +136,10 @@ exports.addfriend = function (req, res, next) {
         function(err, model){
             if(err){
                 console.log("FAILED to add a friend");
-                res.sendStatus(500);
+                res.status(500).send("Internal server error");
             }
             else{
-                res.sendStatus(200);
+                res.status(200).send("Added");
             }
         })
 };
@@ -150,10 +154,9 @@ exports.getFollowings = function (req, res) {
         }
     }, 'username displayname', function(err, users){
         if(err){
-            console.log("FAILED to add a friend");
-            res.sendStatus(500);
+            res.status(500).send("Internal server error");
         }else{
-            res.send(users);
+            res.status(200).send(users);
         }
     });
 }
@@ -169,11 +172,11 @@ exports.unfollow = function(req, res) {
     }, function(err, num){
         if(err){
             console.log(err);
-            res.sendStatus(500);
+            res.status(500).send("Internal server error");            
         }
         else{
             console.log("Unfollowing friend: " + num);
-            res.send(num);
+            res.status(200).send("Unfollowed!")
         }
     });
 }
