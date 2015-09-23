@@ -22,10 +22,15 @@ exports.signup = function(req, res){
                         console.log(err);
                         res.render('signup', {message: "Error occurs when registering a new user"});
                     }else{
-                        var lastusername = allusers[0].username;
-                        console.log("LAST NAME " + lastusername);
-                        var index = parseInt(lastusername.substring(4), 10) + 1;
-                        var username = "user" + index.toString();
+                        if(allusers.length == 0){
+                            var username = 'user0';
+                        }
+                        else{
+                            var lastusername = allusers[0].username;
+                            console.log("LAST NAME " + lastusername);
+                            var index = parseInt(lastusername.substring(4), 10) + 1;
+                            var username = "user" + index.toString();
+                        }
 
                         console.log(username);
                         var newuser = new User({
