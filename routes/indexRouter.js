@@ -32,7 +32,7 @@ router.get('/signin', function(req, res, next){
     else {
         var msg = req.flash("error");
         var pagerender = {name: 'signin', data: {message: msg}};
-        ResponseHelper.respond(res, pagerender, 404, "This route is not supported for mobile");
+        ResponseHelper.respond(res, pagerender, 401, msg);
     }
 });
 router.get('/logout', UserController.logout);

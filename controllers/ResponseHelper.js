@@ -4,7 +4,7 @@ exports.respond = function(res, page, code, data) {
             res.render(page.name, page.data);
         },
         json: function(){
-            res.status(code).send(data);
+            res.status(code).json(data);
         }
     });
 }
