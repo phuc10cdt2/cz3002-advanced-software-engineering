@@ -7,6 +7,10 @@ exports.signup = function(req, res){
     var email = req.body.email;
     var displayname = req.body.name;
     var password = req.body.password;
+    if(email == undefined || displayname == undefined || password == undefined){
+        var pagerender = {name: 'signup', data: {message: "Form missing values!"}};
+        ResponseHelper.respond(res, pagerender, 500, "Bad request! Registration form not correct");
+    }
     User.findOne({email:email}, function(err, user){
         if(err){
             var pagerender = {name: 'signup', data: {message: "Internal server error!"}};
