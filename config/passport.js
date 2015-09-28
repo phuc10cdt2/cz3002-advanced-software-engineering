@@ -15,6 +15,8 @@ passport.serializeUser(function(user, done) {
 
 passport.use(new LocalStrategy(
     function(username, password, done){
+        console.log(username);
+        console.log(password);
         User.findOne({email:username}, function(err, user){
             if(err){
                 console.log("Error!")

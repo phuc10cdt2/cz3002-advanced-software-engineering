@@ -1,4 +1,5 @@
 var express = require('express');
+var ResponseHelper = require('../controllers/ResponseHelper');
 var router = express.Router();
 var UserController = require('../controllers/UserController');
 var pass = require('../config/passport');
@@ -11,10 +12,12 @@ router.get('/', function(req, res, next) {
         if(!displayname){
             displayname = user.username;
         }
-        res.render('home', {name: displayname});
+        var pagerender = {name: 'home', data: {name: displayname}};
+        ResponseHelper.respond(res, pagerender, 200, user);
     }
     else{
-        res.render('signin');
+        var pagerender = {name: 'signin'};
+        ResponseHelper.respond(res, pagerender, 401, "You are not signed in!");
     }
 });
 router.get('/signup', function(req, res, next){
@@ -24,11 +27,12 @@ router.post('/signup', UserController.signup);
 router.post('/signin', UserController.signin);
 router.get('/signin', function(req, res, next){
     if(req.isAuthenticated()){
-        res.render('home');
+        res.redirect('/');
     }
     else {
         var msg = req.flash("error");
-        res.render('signin', {message:msg});
+        var pagerender = {name: 'signin', data: {message: msg}};
+        ResponseHelper.respond(res, pagerender, 404, "This route is not supported for mobile");
     }
 });
 router.get('/logout', UserController.logout);
