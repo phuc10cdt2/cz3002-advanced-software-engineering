@@ -16,7 +16,8 @@ exports.signup = function(req, res){
             if(user){
                 console.log("email already used");
                 var pagerender = {name: 'signup', data: {message: "Email is already used!"}};
-                ResponseHelper.respond(res, 'signup', pagerender, 400, "Email is already used!");
+                ResponseHelper.respond(res, pagerender, 400, "Email is already used!");
+
             }
             else{
                 User.find({}).sort({created_at: -1}).exec(function (err, allusers){
