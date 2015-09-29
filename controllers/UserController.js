@@ -118,13 +118,20 @@ exports.getfriendSuggestion = function(req, res) {
         else{
             var friendList = results.userfriendlist;
             var allusers = results.getallusers;
+            var suggestions = [];
             for(var i = 0; i<allusers.length; i++){
                 if(friendList.indexOf(allusers[i].username)>-1 || user.username == allusers[i].username){
                     allusers.splice(i,1);
                     i--;
                 }
+                else{
+                    var friend = {};
+                    friend.username = allusers[i].username;
+                    friend.displayname = allusers[i].displayname;
+                    suggestions.push(friend);
+                }
             }
-            res.status(200).send(allusers);
+            res.status(200).send(suggestions);
         }
     }
     );
