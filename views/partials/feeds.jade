@@ -21,9 +21,10 @@ form.form-horizontal(action = "/rant" method = "POST")
 					
 div.row
 	hr
-div.row(ng-repeat = "rant in rants")
+div.row(ng-repeat = "rant in rants", ng-hide = "rant.timeout")
 	div.rant-header
 		a {{rant.ownername}}
 	div.rant-content
-		p {{rant.content}}
+		p {{rant.collapse}}
+			a(href = '', ng-click='viewRant(rant)', ng-hide = 'rant.viewed') See more
 	hr

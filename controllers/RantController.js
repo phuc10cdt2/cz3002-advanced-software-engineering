@@ -59,9 +59,11 @@ exports.get = function(req, res, next){
 					var created = date.valueOf();
 					var now = new Date().getTime();
 					var diff = (now - created)/1000;
+					var whoviewed = rant.whoviewed;
 					console.log("Diff time: " + diff);
 					if(diff<rant.lifetime){
-						returnedRants.push(rant);
+						if(whoviewed.indexOf(user.username) == -1)
+							returnedRants.push(rant);
 					}
 					else{
 						rant.active = false;
@@ -74,4 +76,30 @@ exports.get = function(req, res, next){
 	});
 }
 
-
+exports.updateViewer = function (req, res){
+	var user = req.user;
+	var rantId = req.body.id;
+	if(typeof rantId === 'undefined'){
+		res.status(500).send("Rant id is not specify");
+	}
+	console.log("id = " + rantId);
+	Rant.findById(rantId, function (err, rant) {
+		if(err){
+			res.status(500).send("Server error");
+		}
+		var viewers = rant.whoviewed;
+		if(viewers.indexOf(user.username) > -1){
+			console.log("This user alr viewd this rant, why he can still view it");
+			res.send("Viewed");
+		}else{
+			rant.whoviewed.push(user.username);
+		} 
+		rant.save(function (err) {
+			if(err){
+				console.log("Failed to update viewer list");
+				res.status(500).send("Failed to update viewers");
+			}
+			res.status(200).send("Update viewer");
+		});
+	})
+}

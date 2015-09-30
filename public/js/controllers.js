@@ -1,11 +1,29 @@
 (function(){
     var rantControllers = angular.module('rantControllers', []);
 
-    rantControllers.controller('FeedsController', ['$scope', 'Rant', 'Utils', function ($scope, Rant, Utils) {
+    rantControllers.controller('FeedsController', ['$scope', 'Rant', 'Utils', '$http', function ($scope, Rant, Utils, $http) {
         var temp = Rant.query(function(data){
+            for(var i=0; i<data.length; i++){
+                var collapse = data[i].content.substring(0, parseInt(data[i].content.length*0.3, 10));
+                data[i].collapse = collapse + '... ';
+            }
             $scope.rants = data;
         });
-        
+        $scope.viewRant = function (rant) {
+            rant.collapse = rant.content;
+            rant.viewed = true;
+            $http.post('/rant/viewRant', {id: rant._id}).then(function(res){
+                console.log(res);
+            }, function (res) {
+                console.log(res);
+            });
+            var time = parseInt(rant.viewtime*1000);
+            setTimeout(function () {
+                $scope.$apply(function(){
+                    rant.timeout = true;
+                });
+            }, time);
+        }
     }]);
     rantControllers.controller('SuggestionController', ['$scope', 'Utils', function ($scope, Utils) {
         Utils.getFriendSuggestion().then(function(friends){
