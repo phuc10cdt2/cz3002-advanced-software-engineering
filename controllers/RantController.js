@@ -23,6 +23,9 @@ exports.create = function(req, res, next){
 	if(body.anonymous){
 		ownername = "Anonymous";
 	}
+	if(body.content == ''){
+		res.status(400).send("Rant should not be empty");
+	}
 	var rant = new Rant({
 		owner: owner,
 		content: body.content,
@@ -34,7 +37,7 @@ exports.create = function(req, res, next){
 		if(err){
 			console.log("FAILED to stored new rant");
 			console.log(err);
-			res.send("FAILED!");
+			res.status(400).send("Rant posting failed!")
 		}
 		else{
 			console.log("SUCCESS!");
