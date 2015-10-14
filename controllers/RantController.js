@@ -116,3 +116,31 @@ exports.getMyRants = function (req, res){
 		res.json(rants);
 	});
 }
+exports.deleteRant = function (req, res) {
+	var id = req.params.id;
+	Rant.remove({_id: id}, function (err, data){
+		if(err){
+			res.status(500).send("Failed");
+		}
+		else if(data){
+			console.log("Deleted " + data);
+			res.status(200).send('removed!');
+		}
+	});
+}
+exports.update = function (req, res){
+	var body = req.body;
+	console.log(body);
+	Rant.findById({_id: body._id}, function(err, rant) {
+		if(err){
+			res.status(500).send("Failed");
+		}
+		rant.content = body.content;
+		rant.save(function(err, data){
+			if(err){
+				res.status(500).send("FAILED");
+			}
+			res.status(200).send(data);
+		});
+	})
+}

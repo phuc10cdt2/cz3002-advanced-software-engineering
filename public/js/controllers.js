@@ -123,5 +123,38 @@
         Rant.getMyRant({id: 'myrants'},function(data){
             $scope.rants = data;
         });
+        $scope.edit = function (rant){
+            console.log('editing');
+            rant.editBtnClicked=true;
+        }
+        $scope.cancel = function(rant) {
+            console.log('Cancel editing');
+            rant.editBtnClicked=false;
+        }
+        $scope.save = function (rant){
+            rant.$save({id: rant._id}, function(res){
+                console.log("Saved!");
+            }, function (res) {
+                alert('Cannot save now, try again later!');
+            });
+        }
+        $scope.remove = function(rant) {
+            rant.$delete({id: rant._id}, function (res){
+                console.log("Rant deleted!");
+                rant.deleted = true;
+            }, function(err){
+                alert("Delete failed");
+                console.log(err);
+            });
+        }
+        // function spliceRant(rant){
+        //     for(var i =0; i<$scope.rants.length; i++){
+        //         var temp = $scope.rants[i];
+        //         if(temp._id == rant._id){
+        //             $scope.rants.splice(i, 1);
+        //             break;
+        //         }
+        //     }
+        // }
     }]);
 })();

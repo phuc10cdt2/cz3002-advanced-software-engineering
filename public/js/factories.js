@@ -75,7 +75,7 @@
     	return $resource('/users/:id', {id: '@id'});
     });
     angular.module('rant').factory('Rant', function($resource){
-        return $resource('/rant/:id', {id: '@id'},
+        return $resource('/rant/:id', {id: '@_id'},
             {
                 getMyRant: { method: 'GET', isArray: true}
             });

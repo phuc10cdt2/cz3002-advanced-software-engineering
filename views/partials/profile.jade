@@ -1,16 +1,17 @@
-div.row(ng-repeat = "rant in rants")
+div.row(ng-repeat = "rant in rants", ng-hide="rant.deleted")
     div.rant-header
         a {{rant.ownername}}
     div.rant-content
-        p {{rant.content}}
+        p(ng-hide='rant.editBtnClicked') {{rant.content}}
+        textarea.rant-text.form-control(ng-show='rant.editBtnClicked' rows = "3" name = 'content' ng-model='rant.content')
     hr
-    div.row.options-btn(ng-hide='editBtnClicked')
+    div.row.options-btn(ng-hide='rant.editBtnClicked')
         div.col-sm-2.col-sm-offset-8
-            button.btn-block.btn.btn-xs.btn-default Edit
+            button.btn-block.btn.btn-xs.btn-default(type='button', ng-click='edit(rant)') Edit
         div.col-sm-2
-            button.btn.btn-xs.btn-block.btn-default Remove
-    div.row.edit-btn(ng-show="false")
-        div.col-sm-2
-            button.btn.btn-xs.btn-block.btn-default Cancel
+            button.btn.btn-xs.btn-block.btn-default(type='button', ng-click='remove(rant)') Remove
+    div.row.edit-btn(ng-show="rant.editBtnClicked")
         div.col-sm-2.col-sm-offset-8
-            button.btn-block.btn.btn-xs.btn-default Save
+            button.btn.btn-xs.btn-block.btn-default(type='button', ng-click='cancel(rant)') Cancel
+        div.col-sm-2
+            button.btn-block.btn.btn-xs.btn-default(type='button', ng-click='save(rant)') Save
