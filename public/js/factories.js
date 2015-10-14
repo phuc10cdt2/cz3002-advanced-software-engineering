@@ -68,10 +68,16 @@
                         }
         return Messages;
     });
-    angular.module('rant').factory('Rant', function($resource){
-        return $resource('/rant/:id', {id: '@id'});
-    });
+    // angular.module('rant').factory('Rant', function($resource){
+    //     return $resource('/rant/:id', {id: '@id'});
+    // });
     angular.module('rant').factory('User', function($resource){
     	return $resource('/users/:id', {id: '@id'});
+    });
+    angular.module('rant').factory('Rant', function($resource){
+        return $resource('/rant/:id', {id: '@id'},
+            {
+                getMyRant: { method: 'GET', isArray: true}
+            });
     });
 })();

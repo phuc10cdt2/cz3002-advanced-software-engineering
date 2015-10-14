@@ -1,0 +1,24 @@
+div.row
+    form.form-horizontal
+        div.form-group
+            label.col-sm-3.control-label Name: 
+            div.col-sm-7
+                p.form-control-static {{user.name}}
+            div.col-sm-2
+                button.btn.btn-primary.btn-xs.pull-right Edit
+        div.form-group
+            label.col-sm-3.control-label Description: 
+            div.col-sm-9
+                textarea.rant-text.form-control(rows = "3" name = 'content') {{user.description}}
+    div#change-password(ng-show="passwordChange")
+        form.form-horizontal
+            div.form-group
+                label.col-sm-3.control-label Old Password:
+                div.col-sm-9
+                    input(type='password', name='oldpassword', id = 'old-password', class='form-control', placeholder='Old Password', required)
+                label.col-sm-3.control-label New Password:
+                div.col-sm-9
+                    input(type='password', name='newpassword', id = 'new-password', class='form-control', placeholder='New Password', required)
+                label.col-sm-3.control-label Repeat Password:
+                div.col-sm-9
+                    input(type='password', name='repeatpassword', id = 'repeat-password', class='form-control', placeholder='New Password', required)

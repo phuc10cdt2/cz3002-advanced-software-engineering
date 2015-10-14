@@ -106,3 +106,13 @@ exports.updateViewer = function (req, res){
 		});
 	})
 }
+exports.getMyRants = function (req, res){
+	var user = req.user;
+	var username = user.username;
+	Rant.find({$and: [{active: true}, {owner: username}]}, function(err, rants){
+		if(err){
+			console.log('Error');
+		}
+		res.json(rants);
+	});
+}

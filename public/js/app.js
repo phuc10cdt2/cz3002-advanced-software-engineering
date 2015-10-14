@@ -10,7 +10,7 @@
     			templateUrl: 'partials/messages.jade',
     			controller: 'MessageController'
     		}).
-    		when('/profile', {
+    		when('/rants', {
     			templateUrl: 'partials/profile.jade',
     			controller: 'ProfileController'
     		}).

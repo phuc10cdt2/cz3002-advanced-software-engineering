@@ -4,6 +4,18 @@ body {
 label.rant-settings {
     font-weight: normal !important;
 }
+.no-margin-left{
+  margin-left: 0
+}
+.no-margin-right{
+  margin-right: 0
+}
+.no-padding-left{
+  padding-left: 0
+}
+.no-padding-right{
+  padding-right: 0
+}
 .message-box{
   padding-left: 10px;
   padding-right: 10px;

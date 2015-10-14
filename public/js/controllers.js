@@ -119,4 +119,9 @@
             });
         }
     }]);
+    rantControllers.controller('ProfileController', ['$scope', 'Utils', 'Rant', function ($scope, Utils, Rant) {
+        Rant.getMyRant({id: 'myrants'},function(data){
+            $scope.rants = data;
+        });
+    }]);
 })();
