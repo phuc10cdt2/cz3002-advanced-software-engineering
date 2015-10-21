@@ -2,6 +2,13 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #f7f7f7;
 }
+.popover{
+    width:200px;
+    height:150px;
+  }
+.dropdown-menu{
+  width: 100%;
+}
 label.rant-settings {
     font-weight: normal !important;
 }
@@ -36,6 +43,9 @@ label.control-label{
 .rant-timing{
   padding: 0px;
   margin:0;
+}
+.timing-btn{
+  margin-right:20px;
 }
 .rant-settings{
 }

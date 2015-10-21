@@ -1,23 +1,49 @@
-form.form-horizontal(action = "/rant" method = "POST")
+form.form-horizontal
 	div.form-group
-		textarea.rant-text.form-control(rows = "3" name = 'content' value = "What's in your mind?")
+		textarea.rant-text.form-control(rows = "3" name = 'content' value = "What's in your mind?" ng-model='rantContent')
 	div.form-group.rant-settings
 		div.col-xs-8.rant-timing
 			div.form-inline
 				div.form-group.col-xs-6.rant-timing
-					label Life time(s):
-					input.form-control.input-sm(type='text' name='lifetime')
+					div.btn-group.btn-block.no-padding-left.no-padding-right.timing-btn
+						button.btn.btn-default.btn-sm.col-xs-10(type='button', data-toggle='dropdown' aria-haspopup='true' aria-expanded="false") {{lifebtn}}
+						button.btn.btn-default.dropdown-toggle.btn-sm.col-xs-2(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+							span.caret
+						ul.dropdown-menu
+							li
+								a(ng-click="setLifetime(1)") 1 hour
+							li
+								a(ng-click="setLifetime(3)") 3 hour
+							li
+								a(ng-click="setLifetime(6)") 6 hour
+							li
+								a(ng-click="setLifetime(12)") 12 hour
+							li
+								a(ng-click="setLifetime(24)") 1 day
+					//- input.form-control.input-sm#life-time(type='text' name='lifetime' data-toggle='popover' data-trigger='focus')
 				div.form-group.col-xs-6.rant-timing
-					label View time(s):
-					input.form-control.input-sm(type='text' name='viewtime')
+					div.btn-group.btn-block.no-padding-left.no-padding-right.timing-btn
+						button.btn.btn-default.btn-sm.col-xs-10(type='button', data-toggle='dropdown' aria-haspopup='true' aria-expanded="false") {{viewbtn}}
+						button.btn.btn-default.dropdown-toggle.btn-sm.col-xs-2(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+							span.caret
+						ul.dropdown-menu
+							li
+								a(ng-click="setViewtime(10)") 10 seconds
+							li
+								a(ng-click="setViewtime(30)") 30 seconds
+							li
+								a(ng-click="setViewtime(60)") 1 min
+							li
+								a(ng-click="setViewtime(300)") 5 mins
+							li
 		div.col-xs-4
 			div.checkbox
 				label
-					input(type='checkbox' name='anonymous')
+					input(type='checkbox' name='anonymous' ng-model='anonymous')
 					| Post as anonymous
 	div.form-group
 		div.col-sm-2.pull-right.rant-timing
-			button.btn.btn-xs.btn-primary.pull-right.btn-rant(type='submit') Post
+			button.btn.btn-xs.btn-primary.pull-right.btn-rant(type='button' ng-click='post()') Post
 					
 div.row
 	hr

@@ -2,6 +2,8 @@
     var rantControllers = angular.module('rantControllers', []);
 
     rantControllers.controller('FeedsController', ['$scope', 'Rant', 'Utils', '$http', function ($scope, Rant, Utils, $http) {
+        $scope.viewbtn = 'View time';
+        $scope.lifebtn = 'Life time';
         var temp = Rant.query(function(data){
             for(var i=0; i<data.length; i++){
                 var collapse = data[i].content.substring(0, parseInt(data[i].content.length*0.3, 10));
@@ -9,6 +11,36 @@
             }
             $scope.rants = data;
         });
+        $('#life-time').popover({title: 'Tips', placement:'right', 
+            content: 'After this time elapsed, your rant will be gone forever!'});
+        $('#view-time').popover({title: 'Tips', placement:'right', 
+            content: 'Your friend can only view this full rant once and within this time!'});
+        $scope.setViewtime = function(t){
+            $scope.viewtime = t;
+            $scope.viewbtn = '' + t + ' seconds';
+        }
+        $scope.setLifetime = function(t){
+            $scope.lifetime = t*3600;
+            $scope.lifebtn = '' + t + ' hour';
+        }
+        $scope.post = function(){
+            rant={
+                viewtime: $scope.viewtime,
+                lifetime: $scope.lifetime,
+                anonymous: $scope.anonymous,
+                content: $scope.rantContent
+            };
+            $http.post('/rant', rant).then(refresh, function(err){
+                alert(err.data);
+            })
+        }
+        function reset(){
+            $scope.rantContent = '';
+            $scope.lifetime = '';
+            $scope.viewtime = '';
+            $scope.lifebtn = 'Life time';
+            $scope.viewbtn = 'View time';
+        }
         $scope.viewRant = function (rant) {
             rant.collapse = rant.content;
             rant.viewed = true;
@@ -24,6 +56,16 @@
                 });
             }, time);
         }
+        function refresh(){
+            reset();
+            Rant.query(function(data){
+                for(var i=0; i<data.length; i++){
+                    var collapse = data[i].content.substring(0, parseInt(data[i].content.length*0.3, 10));
+                    data[i].collapse = collapse + '... ';
+                }
+                $scope.rants = data;
+            });
+        }
     }]);
     rantControllers.controller('SuggestionController', ['$scope', 'Utils', function ($scope, Utils) {
         Utils.getFriendSuggestion().then(function(friends){
@@ -37,7 +79,7 @@
                     $scope.suggestionLength--;
                 }
                 else{
-                    alert("Failed to add this user");
+                    alert(res.data);
                 }
             });
         };

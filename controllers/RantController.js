@@ -7,6 +7,7 @@ exports.create = function(req, res, next){
 	var ownername = user.displayname;
 	//these values not set over yet
 	var viewtime;
+	console.log(body);
 	var lifetime;
 	if(body.lifetime){
 		lifetime = parseInt(body.lifetime,10);
@@ -23,8 +24,9 @@ exports.create = function(req, res, next){
 	if(body.anonymous){
 		ownername = "Anonymous";
 	}
-	if(body.content == ''){
+	if(typeof(body.content) == 'undefined' || body.content == ''){
 		res.status(400).send("Rant should not be empty");
+		return;
 	}
 	var rant = new Rant({
 		owner: owner,
