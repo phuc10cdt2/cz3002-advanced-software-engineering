@@ -1,6 +1,8 @@
 extends layout
 
 block content
+    style 
+        include ../public/css/background.css
     div.container
         div.col-sm-6.col-md-4.col-md-offset-4
             form(class='form-signin', action='/signup', method='POST')

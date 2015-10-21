@@ -1,6 +1,8 @@
 extends layout
 
 block content
+    style 
+        include ../public/css/background.css
     div.container
         div.col-xs-4.col-xs-offset-4
             form(class='form-signin', action='/signin', method='POST' autocomplete = "on")
