@@ -193,10 +193,13 @@ exports.unfollow = function(req, res) {
     });
 }
 exports.get = function (req, res) {
-    var username = req.params.username;
+    var username = req.user.username;
     User.findOne({username:username}, function(err, user){
         if(err){
             res.status(500).send("Server error!");
+        }
+        if(!user){
+            res.status(400).send("No such user");
         }
         user = user.toObject()
         delete user['password'];
