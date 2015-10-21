@@ -1,24 +1,37 @@
 div.row
     form.form-horizontal
         div.form-group
+            div.col-sm-offset-3.col-sm-9
+                div.alert.alert-success(role='alert', ng-show="success")#success-alert You profile has been updated!
+            div.col-sm-offset-3.col-sm-9
+                div.alert.alert-danger(role='alert', ng-show="failed")#fail-alert {{message}}
+        div.form-group
             label.col-sm-3.control-label Name: 
-            div.col-sm-7
-                p.form-control-static {{user.name}}
-            div.col-sm-2
-                button.btn.btn-primary.btn-xs.pull-right Edit
+            div.col-sm-9
+                input(type='text', name='name', id = 'name', class='form-control', value='{{updatedUser.displayname}}', required, ng-model='updatedUser.displayname')
         div.form-group
             label.col-sm-3.control-label Description: 
             div.col-sm-9
-                textarea.rant-text.form-control(rows = "3" name = 'content') {{user.description}}
-    div#change-password(ng-show="passwordChange")
+                textarea.form-control(rows = "3" name = 'content') {{user.description}}
+    div#change-password(ng-show='changepassword')
         form.form-horizontal
             div.form-group
                 label.col-sm-3.control-label Old Password:
                 div.col-sm-9
-                    input(type='password', name='oldpassword', id = 'old-password', class='form-control', placeholder='Old Password', required)
+                    input(type='password', name='oldpassword', id = 'old-password', class='form-control', placeholder='Old Password', required, ng-model='oldpassword')
+            div.form-group
                 label.col-sm-3.control-label New Password:
                 div.col-sm-9
-                    input(type='password', name='newpassword', id = 'new-password', class='form-control', placeholder='New Password', required)
+                    input(type='password', name='newpassword', id = 'new-password', class='form-control', placeholder='New Password', required, ng-model='newpassword')
+            div.form-group
                 label.col-sm-3.control-label Repeat Password:
                 div.col-sm-9
-                    input(type='password', name='repeatpassword', id = 'repeat-password', class='form-control', placeholder='New Password', required)
+                    input(type='password', name='repeatpassword', id = 'repeat-password', class='form-control', placeholder='New Password', required, ng-model='repeatpassword')
+
+    div.row.edit-btn
+        div.col-sm-offset-3.col-sm-3
+            a(href='', ng-click='changePassword()' ng-hide='changepassword') Change Password
+        div.col-sm-2.col-sm-offset-2
+            button.btn.btn-xs.btn-block.btn-default(type='button', ng-click='cancel()') Cancel
+        div.col-sm-2
+            button.btn-block.btn.btn-xs.btn-default(type='button', ng-click='save()') Save

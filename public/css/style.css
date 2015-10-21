@@ -4,6 +4,9 @@ body {
 label.rant-settings {
     font-weight: normal !important;
 }
+label.control-label{
+  text-align: left;
+}
 .no-margin-left{
   margin-left: 0
 }

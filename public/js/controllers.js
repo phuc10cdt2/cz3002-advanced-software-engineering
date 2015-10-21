@@ -157,4 +157,50 @@
         //     }
         // }
     }]);
+    rantControllers.controller('SettingsController', ['$scope', 'User', '$http', function ($scope, User, $http){
+        User.get(function(user){
+            $scope.user = user;
+            $scope.updatedUser = {};
+            angular.copy($scope.user, $scope.updatedUser);
+        });
+        $scope.cancel = function(name) {
+            $scope.updatedUser = angular.copy($scope.user);
+        }
+        $scope.save = function() {
+            if($scope.changepassword && ($scope.newpassword != $scope.repeatpassword || typeof($scope.newpassword) == 'undefined' || typeof($scope.repeatpassword) == 'undefined')){
+                $scope.message = 'Your password is empty or does not match!';
+                $scope.failed = true;
+            }
+            if(typeof($scope.updatedUser.displayname) == 'undefined'){
+                $scope.message = 'Your name cannot be empty!';
+                $scope.failed = true;
+            }
+            if($scope.failed){
+                $("#fail-alert").fadeTo(10000, 500).slideUp(500, function(){
+                        $scope.failed = false;
+                });
+            }
+            else{
+                data = {
+                    displayname: $scope.updatedUser.displayname, 
+                    oldpassword: $scope.oldpassword,
+                    newpassword: $scope.newpassword,
+                    repeatpassword: $scope.repeatpassword
+                }
+                $http.post('/users/', data).then(function(res){
+                    console.log(data);
+                    $scope.success = true;
+                    $scope.failed = false;
+                }, function (res) {
+                    console.log('Error!');
+                    console.log(res);
+                    $scope.failed = true;
+                    $scope.message = res.data;
+                })
+            }
+        }
+        $scope.changePassword = function () {
+            $scope.changepassword = true;
+        }
+    }]);
 })();

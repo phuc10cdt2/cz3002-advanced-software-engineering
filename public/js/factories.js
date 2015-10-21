@@ -72,7 +72,10 @@
     //     return $resource('/rant/:id', {id: '@id'});
     // });
     angular.module('rant').factory('User', function($resource){
-    	return $resource('/users/:id', {id: '@id'});
+    	return $resource('/users', {},
+            {
+                save: {method: 'POST', url: '/users/'}
+            });
     });
     angular.module('rant').factory('Rant', function($resource){
         return $resource('/rant/:id', {id: '@_id'},

@@ -193,5 +193,60 @@ exports.unfollow = function(req, res) {
     });
 }
 exports.get = function (req, res) {
-    
+    var username = req.params.username;
+    User.findOne({username:username}, function(err, user){
+        if(err){
+            res.status(500).send("Server error!");
+        }
+        user = user.toObject()
+        delete user['password'];
+        delete user['friends'];
+        delete user['created_at'];
+        console.log(user);
+        res.status(200).send(user);
+    })
+}
+exports.update = function(req, res){
+    var user = req.user;
+    var body = req.body;
+    console.log(body);
+    var password = body.oldpassword;
+    var newpassword = body.newpassword;
+    var repeatpassword = body.repeatpassword;
+    var changepass = false;
+
+    if(typeof(password) != 'undefined' && typeof(newpassword) != 'undefined' && typeof(repeatpassword) != 'undefined')
+        changepass = true;
+    // if(newpassword.localeCompare(repeatpassword) != 0){
+    //     res.status(400).send("Your repeated password does not match");
+    //     changepass = false;
+    // }
+    var displayname = body.displayname;
+    if(typeof(displayname) == 'undefined' || displayname == '')
+        res.status(400).send('Your name cannot be empty!');
+    User.findOne({username: user.username}, function(err, user){
+        if(err){
+            res.status(500).send("Database error!");
+        }
+        if(!user){
+            res.status(500).send("Could not find this user. Maybe you are logged out, please try again");
+        }
+        else{
+            if(changepass){
+                if(user.verifyPassword(user, password)){
+                    user.password = newpassword;
+                }
+                else{
+                    res.status(400).send('Your old password is not correct');
+                }
+            }
+            user.displayname = displayname;
+            user.save(function(err){
+                if(err){
+                    res.status(500).send("Sorry, cannot update your profile, try again later");
+                }
+                res.status(200).send('Success!');
+            });
+        }
+    });
 }
