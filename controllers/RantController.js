@@ -132,11 +132,23 @@ exports.deleteRant = function (req, res) {
 }
 exports.update = function (req, res){
 	var body = req.body;
+	var id = req.params.id;
+	if(!id){
+		id = body._id; 
+		if(!id){
+			res.status(400).send("Rant id not found!");
+			return;
+		}
+	}
 	console.log(body);
-	Rant.findById({_id: body._id}, function(err, rant) {
+	Rant.findById({_id: id}, function(err, rant) {
 		if(err){
 			res.status(500).send("Failed");
 		}
+		if(!rant){
+			res.status(400).send("No such rant");
+			return;
+		}		
 		rant.content = body.content;
 		rant.save(function(err, data){
 			if(err){
