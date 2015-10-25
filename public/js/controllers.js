@@ -180,20 +180,21 @@
             rant.$delete({id: rant._id}, function (res){
                 console.log("Rant deleted!");
                 rant.deleted = true;
+                spliceRant(rant);
             }, function(err){
                 alert("Delete failed");
                 console.log(err);
             });
         }
-        // function spliceRant(rant){
-        //     for(var i =0; i<$scope.rants.length; i++){
-        //         var temp = $scope.rants[i];
-        //         if(temp._id == rant._id){
-        //             $scope.rants.splice(i, 1);
-        //             break;
-        //         }
-        //     }
-        // }
+        function spliceRant(rant){
+            for(var i =0; i<$scope.rants.length; i++){
+                var temp = $scope.rants[i];
+                if(temp._id == rant._id){
+                    $scope.rants.splice(i, 1);
+                    break;
+                }
+            }
+        }
     }]);
     rantControllers.controller('SettingsController', ['$scope', 'User', '$http', function ($scope, User, $http){
         User.get(function(user){

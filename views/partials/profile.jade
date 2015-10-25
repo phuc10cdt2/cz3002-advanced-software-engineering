@@ -1,3 +1,5 @@
+div.row(ng-show='rants.length == 0')
+    h3.empty-message You don't have any rants.
 div.row(ng-repeat = "rant in rants", ng-hide="rant.deleted")
     div.rant-header
         a {{rant.ownername}}

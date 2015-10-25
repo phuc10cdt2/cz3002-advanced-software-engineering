@@ -6,6 +6,10 @@ body {
   margin-top: -10px;
   margin-bottom: -10px;
 }
+.empty-message{
+  text-align: center;
+  color: #A0A0A0;
+}
 .customed-header{
   background-color: #3b5998;
   padding: 15px;

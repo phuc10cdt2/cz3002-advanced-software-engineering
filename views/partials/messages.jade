@@ -1,4 +1,6 @@
 div.row.message-box
+    div.row(ng-show='messages.length == 0')
+        h3.empty-message You don't have any message. Come back later :)
     div.row(ng-repeat='message in messages')
         div.alert.alert-success(ng-hide='message.read')
             a(href='users/{{message.sender}}') {{message.sendername}} 
