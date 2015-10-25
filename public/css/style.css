@@ -2,7 +2,10 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #f7f7f7;
 }
-
+.logo{
+  margin-top: -10px;
+  margin-bottom: -10px;
+}
 .customed-header{
   background-color: #3b5998;
   padding: 15px;
