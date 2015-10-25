@@ -123,25 +123,21 @@
         }
     }]);
     rantControllers.controller('HomeController', ['$scope', 'Utils', 'Messages', function($scope, Utils, Messages){    
-        Utils.getMessage().then(function(res){
-            Messages.messages = res.data;
+        // Utils.getMessage().then(function(res){
+        //     Messages.messages = res.data;
+        //     $scope.messages = Messages.messages;
+        // }).catch(function(err){
+        //     console.log("FAILED to get messages");
+        // });
+        $scope.$watch(function(){return Messages.messages;}, function(newVal){
             $scope.messages = Messages.messages;
-        }).catch(function(err){
-            console.log("FAILED to get messages");
         });
-        $scope.$watch(Messages.messages, function(newval, oldval){
-            console.log("updating badge");
-            $scope.messages = Messages.messages;
-        }, true);
     }]);
 
     rantControllers.controller('MessageController', ['$scope', 'Utils', 'Messages', function($scope, Utils, Messages){
-        Utils.getMessage().then(function(res){
-            $scope.messages = res.data;
-        }).catch(function(err){
-            console.log("FAILED to get messages");
+        $scope.$watch(function(){return Messages.messages;}, function(newVal){
+            $scope.messages = Messages.messages;
         });
-        console.log(Messages.messages);
         $scope.readMessage = function(message) {
             $scope.currentMsg = message;
             message.read = true;

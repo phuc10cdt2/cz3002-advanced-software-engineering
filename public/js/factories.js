@@ -54,7 +54,7 @@
             return $http.post('users/readmessage', {msgid: msgid});
         }
     });
-    angular.module('rant').factory('Messages', function() {
+    angular.module('rant').factory('Messages', ['$http', '$timeout', function($http, $timeout) {
         var Messages = {};
         Messages.messages = [];
         Messages.remove = function(msg){
@@ -66,8 +66,16 @@
                                 }
                             }
                         }
+        getMessages();
+        function getMessages(){
+            $http.get('users/message').then(function(messages){
+                Messages.messages = messages.data;
+                console.log('polling for messages');
+                $timeout(getMessages, 2000);
+            });
+        }
         return Messages;
-    });
+    }]);
     // angular.module('rant').factory('Rant', function($resource){
     //     return $resource('/rant/:id', {id: '@id'});
     // });
