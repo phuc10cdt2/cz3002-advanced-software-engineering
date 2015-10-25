@@ -233,6 +233,7 @@
                     console.log(data);
                     $scope.success = true;
                     $scope.failed = false;
+                    location.reload();
                 }, function (res) {
                     console.log('Error!');
                     console.log(res);
