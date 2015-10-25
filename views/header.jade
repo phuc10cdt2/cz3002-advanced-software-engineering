@@ -1,7 +1,6 @@
-div.container-fluid.customed-header
-	div.row
-		div.col-xs-3.pull-right
-			span.logout-btn.pull-right.display-name
-				a(href = '/logout') Log out
-			span.display-name.pull-right #{name}
-			
+div.row.customed-header
+	div.col-xs-3.pull-right.top-right-header
+		span.logout-btn.pull-right.display-name
+			a.btn.btn-primary.btn-sm(type = 'button' href = '/logout') Log out
+		span.display-name.pull-right #{name}
+		

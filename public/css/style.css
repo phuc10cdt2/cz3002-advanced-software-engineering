@@ -2,6 +2,16 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #f7f7f7;
 }
+
+.customed-header{
+  background-color: #3b5998;
+  padding: 15px;
+  margin-bottom: 20px;
+  color: white;
+}
+span.display-name{
+  line-height: 30px;
+}
 .popover{
     width:200px;
     height:150px;
@@ -52,10 +62,6 @@ label.control-label{
 .form-inline .form-group{
     margin-left: 0;
     margin-right: 0;
-}
-.customed-header{
-  padding: 5px;
-  margin: 10px;
 }
 .display-name{
   margin-left: 5px;
