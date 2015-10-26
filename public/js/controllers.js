@@ -204,8 +204,13 @@
         });
         $scope.cancel = function(name) {
             $scope.updatedUser = angular.copy($scope.user);
+            $scope.changepassword = false;
+            $scope.oldpassword = undefined;
+            $scope.newpassword = undefined;
+            $scope.repeatpassword = undefined;
         }
         $scope.save = function() {
+            $scope.failed = false;
             if($scope.changepassword && ($scope.newpassword != $scope.repeatpassword || typeof($scope.newpassword) == 'undefined' || typeof($scope.repeatpassword) == 'undefined')){
                 $scope.message = 'Your password is empty or does not match!';
                 $scope.failed = true;
@@ -214,10 +219,10 @@
                 $scope.message = 'Your name cannot be empty!';
                 $scope.failed = true;
             }
+            console.log($scope.failed);
             if($scope.failed){
-                $("#fail-alert").fadeTo(10000, 500).slideUp(500, function(){
-                        $scope.failed = false;
-                });
+                $("#fail-alert").fadeTo(5000, 500).slideUp(500);
+                $scope.failed = false;
             }
             else{
                 data = {
