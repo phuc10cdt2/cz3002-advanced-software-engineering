@@ -220,9 +220,9 @@
                 $scope.failed = true;
             }
             console.log($scope.failed);
+            console.log($scope.message);
             if($scope.failed){
-                $("#fail-alert").fadeTo(5000, 500).slideUp(500);
-                $scope.failed = false;
+                $("#fail-alert").fadeTo(5000, 500).slideUp(500, function(){$scope.failed = false;});
             }
             else{
                 data = {
@@ -242,6 +242,7 @@
                     console.log(res);
                     $scope.failed = true;
                     $scope.message = res.data;
+                    $("#fail-alert").fadeTo(5000, 500).slideUp(500, function(){$scope.failed = false;});
                 })
             }
         }
