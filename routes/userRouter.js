@@ -21,7 +21,8 @@ router.get('/message', pass.ensureAuthenticated, MessageController.retrieve);
 
 router.post('/readmessage', pass.ensureAuthenticated, MessageController.read);
 
-router.get('/', pass.ensureAuthenticated, UserController.get);
+router.get('/*', pass.ensureAuthenticated, UserController.get);
 
 router.post('/', pass.ensureAuthenticated, UserController.update);
+
 module.exports = router;

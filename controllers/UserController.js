@@ -194,12 +194,18 @@ exports.unfollow = function(req, res) {
 }
 exports.get = function (req, res) {
     var username = req.user.username;
+    var query = req.params['0'];
+    console.log(query);
+    if(query != ''){
+        username = query;
+    }
     User.findOne({username:username}, function(err, user){
         if(err){
             res.status(500).send("Server error!");
         }
         if(!user){
             res.status(400).send("No such user");
+            return;
         }
         user = user.toObject()
         delete user['password'];
@@ -217,7 +223,7 @@ exports.update = function(req, res){
     var newpassword = body.newpassword;
     var repeatpassword = body.repeatpassword;
     var changepass = false;
-
+    var about = body.about;
     if(typeof(password) != 'undefined' && typeof(newpassword) != 'undefined' && typeof(repeatpassword) != 'undefined')
         changepass = true;
     // if(newpassword.localeCompare(repeatpassword) != 0){
@@ -244,6 +250,7 @@ exports.update = function(req, res){
                 }
             }
             user.displayname = displayname;
+            user.about = about;
             user.save(function(err){
                 if(err){
                     res.status(500).send("Sorry, cannot update your profile, try again later");

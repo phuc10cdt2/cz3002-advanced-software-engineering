@@ -224,7 +224,8 @@
                     displayname: $scope.updatedUser.displayname, 
                     oldpassword: $scope.oldpassword,
                     newpassword: $scope.newpassword,
-                    repeatpassword: $scope.repeatpassword
+                    repeatpassword: $scope.repeatpassword,
+                    about: $scope.updatedUser.about
                 }
                 $http.post('/users/', data).then(function(res){
                     console.log(data);

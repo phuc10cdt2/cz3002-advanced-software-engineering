@@ -10,7 +10,8 @@ var UserSchema = new Schema({
     password: {type: String, required: true},
     friends: [String],
     created_at: {type: Date},
-    updated_at: {type: Date}
+    updated_at: {type: Date},
+    about: {type: String}
 });
 
 UserSchema.pre('save', function(next){

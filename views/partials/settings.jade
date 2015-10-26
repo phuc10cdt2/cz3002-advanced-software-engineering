@@ -10,9 +10,9 @@ div.row
             div.col-sm-9
                 input(type='text', name='name', id = 'name', class='form-control', value='{{updatedUser.displayname}}', required, ng-model='updatedUser.displayname')
         div.form-group
-            label.col-sm-3.control-label Description: 
+            label.col-sm-3.control-label About you: 
             div.col-sm-9
-                textarea.form-control(rows = "3" name = 'content') {{user.description}}
+                textarea.form-control(rows = "3" name = 'content' ng-model="updatedUser.about")
     div#change-password(ng-show='changepassword')
         form.form-horizontal
             div.form-group
