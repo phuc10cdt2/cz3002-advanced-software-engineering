@@ -11,7 +11,7 @@ var UserSchema = new Schema({
     friends: [String],
     created_at: {type: Date},
     updated_at: {type: Date},
-    about: {type: String}
+    about: {type: String, default: null}
 });
 
 UserSchema.pre('save', function(next){
