@@ -6,7 +6,7 @@ form.form-horizontal
 			div.form-inline
 				div.form-group.col-xs-6.rant-timing
 					div.btn-group.btn-block.no-padding-left.no-padding-right.timing-btn
-						button.btn.btn-default.btn-sm.col-xs-10(type='button', data-toggle='dropdown' aria-haspopup='true' aria-expanded="false") {{lifebtn}}
+						button.btn.btn-default.btn-sm.col-xs-10(type='button', data-toggle='tooltip' data-replacement='bottom' title='After this time elapsed, your rant will be gone forever!' aria-haspopup='true' aria-expanded="false") {{lifebtn}}
 						button.btn.btn-default.dropdown-toggle.btn-sm.col-xs-2(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
 							span.caret
 						ul.dropdown-menu
@@ -20,10 +20,9 @@ form.form-horizontal
 								a(ng-click="setLifetime(12)") 12 hour
 							li
 								a(ng-click="setLifetime(24)") 1 day
-					//- input.form-control.input-sm#life-time(type='text' name='lifetime' data-toggle='popover' data-trigger='focus')
 				div.form-group.col-xs-6.rant-timing
 					div.btn-group.btn-block.no-padding-left.no-padding-right.timing-btn
-						button.btn.btn-default.btn-sm.col-xs-10(type='button', data-toggle='dropdown' aria-haspopup='true' aria-expanded="false") {{viewbtn}}
+						button.btn.btn-default.btn-sm.col-xs-10(type='button' data-toggle='tooltip' data-replacement='bottom' title='Your friend can only view this full rant once and within this time!' aria-haspopup='true' aria-expanded="false") {{viewbtn}}
 						button.btn.btn-default.dropdown-toggle.btn-sm.col-xs-2(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
 							span.caret
 						ul.dropdown-menu
@@ -38,7 +37,7 @@ form.form-horizontal
 							li
 		div.col-xs-4
 			div.checkbox
-				label
+				label(data-toggle='tooltip' data-replacement='bottom' title="Your name will be displayed as 'Anonymous', no one knows its your rant!")
 					input(type='checkbox' name='anonymous' ng-model='anonymous')
 					| Post as anonymous
 	div.form-group

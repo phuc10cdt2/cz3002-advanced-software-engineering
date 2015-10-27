@@ -11,10 +11,13 @@
             }
             $scope.rants = data;
         });
-        $('#life-time').popover({title: 'Tips', placement:'right', 
-            content: 'After this time elapsed, your rant will be gone forever!'});
-        $('#view-time').popover({title: 'Tips', placement:'right', 
-            content: 'Your friend can only view this full rant once and within this time!'});
+        // $('#life-time').popover({title: 'Tips', placement:'right', 
+        //     content: 'After this time elapsed, your rant will be gone forever!'});
+        // $('#view-time').popover({title: 'Tips', placement:'right', 
+        //     content: 'Your friend can only view this full rant once and within this time!'});
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        }) 
         $scope.setViewtime = function(t){
             $scope.viewtime = t;
             $scope.viewbtn = '' + t + ' seconds';
