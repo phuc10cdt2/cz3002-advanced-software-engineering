@@ -18,7 +18,7 @@ exports.signup = function(req, res){
         }
         else{
             if(user){
-                console.log("email already used");
+                console.log("Email already used");
                 var pagerender = {name: 'signup', data: {message: "Email is already used!"}};
                 ResponseHelper.respond(res, pagerender, 400, "Email is already used!");
 
@@ -35,12 +35,9 @@ exports.signup = function(req, res){
                         }
                         else{
                             var lastusername = allusers[0].username;
-                            console.log("LAST NAME " + lastusername);
                             var index = parseInt(lastusername.substring(4), 10) + 1;
                             var username = "user" + index.toString();
                         }
-
-                        console.log(username);
                         var newuser = new User({
                             email: email,
                             displayname: displayname,
@@ -141,7 +138,6 @@ exports.addfriend = function (req, res, next) {
     var user = req.user;
     var username = user.username;
     var friendUsername = body.username;
-    console.log("USRNAME: " + friendUsername);
     User.findOneAndUpdate({username:username},
         {$push: {friends: friendUsername}},
         {safe:true},
@@ -195,7 +191,6 @@ exports.unfollow = function(req, res) {
 exports.get = function (req, res) {
     var username = req.user.username;
     var query = req.params['0'];
-    console.log(query);
     if(query != ''){
         username = query;
     }
@@ -211,14 +206,12 @@ exports.get = function (req, res) {
         delete user['password'];
         delete user['friends'];
         delete user['created_at'];
-        console.log(user);
         res.status(200).send(user);
     })
 }
 exports.update = function(req, res){
     var user = req.user;
     var body = req.body;
-    console.log(body);
     var password = body.oldpassword;
     var newpassword = body.newpassword;
     var repeatpassword = body.repeatpassword;
